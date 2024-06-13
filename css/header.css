@@ -1,0 +1,66 @@
+.navbar {
+  position: sticky;
+  top: 13px;
+  backdrop-filter: blur(8px);
+  background-color: transparent !important;
+  border-radius: 14px;
+  color: var(--main-color);
+  padding: 0px;
+}
+
+.navbar-brand {
+  color: var(--main-color);
+  font-size: 1.55rem;
+}
+
+.log h5 {
+  margin-top: -46px;
+}
+
+@media (max-width: 767.98px) {
+  .log h5 {
+    font-size: 14px;
+  }
+}
+
+.form-control:active .form-control:hover,
+.form-control:focus {
+  background-color: #10cab778 !important;
+}
+
+.navbar-brand:focus,
+.navbar-brand:hover {
+  text-shadow: 0px 0px 9px var(--main-color);
+}
+
+.navbar-toggler:focus {
+  text-decoration: none;
+  outline: 0;
+  box-shadow: 0 0 0 0;
+}
+
+.nav-link {
+  color: white !important;
+}
+
+.btn-color:hover,
+.btn-color:active,
+.btn-color:focus {
+  background-color: var(--main-color) !important;
+  color: white !important;
+}
+
+.btn-color {
+  color: var(--main-color);
+  border-color: var(--main-color);
+}
+
+.btn-color:hover {
+  color: white;
+  border-color: var(--main-color);
+  background-color: var(--main-color);
+}
+
+.form-control {
+  background-color: #10cab74d;
+}
