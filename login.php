@@ -24,10 +24,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($stmt->num_rows == 1) {
                     $stmt->bind_result($id, $username, $hashed_password);
                     if ($stmt->fetch()) {
-                        //if (password_verify($password, $hashed_password)) {
+
                             if (password_verify($password,$hashed_password)  ) {
                             echo "Login successful!";
-                            // Start a session and store user information if needed
+
                             $_SESSION['username'] = $username;
                             $_SESSION["email"]=$email;
                             $_SESSION['id']=$id;    
@@ -44,15 +44,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $error_email= "Account Not found ";
                 }
             }
-            //  else {
-            //     echo "Error: Could not execute query: " . $con->error;
-            // }
             $stmt->close();
         } 
     }
-    // else {
-    //     echo "Error: Could not prepare query: " . $con->error;
-    // }
     $con->close();
 }
 ?>
