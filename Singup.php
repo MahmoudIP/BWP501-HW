@@ -180,6 +180,7 @@ function creat_account($username,$email,$password,$con){
 
     <div class="father d-flex justify-content-center align-items-center">
         <form action="" method="POST" class="login " id="form">
+            <h1 class="d-block pt-3  m-auto fit-content" style="color:var(--main-color)">DeepSpace</h1>
             <h1 class="d-block pt-3 p-4 m-auto fit-content" style="color:var(--main-color)">Singup</h1>
             <label id="public-error" class='d-block  m-auto w-fit-content err-color'>
                 <?php echo $public_error? $public_error:"" ?> </label>
@@ -216,7 +217,7 @@ function creat_account($username,$email,$password,$con){
             </label>
 
 
-            <input class="d-block" id="submit" type="submit" value="login">
+            <input class="d-block" id="submit" type="submit" value="Singup">
             <div class=" links d-flex align-items-center justify-content-between ">
                 Have Account?<a class="pe-2" href="./login.php">Login</a>
             </div>

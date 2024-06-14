@@ -2,8 +2,18 @@ body {
   background-image: url(../imgs/header.jpg);
   background-size: contain;
 }
+.nav-item {
+  padding-left: 15px;
+  font-size: 1.3rem;
+}
 .active {
   color: var(--main-color) !important;
+}
+.navbar-but {
+  overflow: hidden;
+  transition: 0.5s;
+  /* height: 250px; */
+  height: 0px;
 }
 
 .landing {
@@ -28,4 +38,18 @@ body {
   margin: auto;
   color: white;
   text-align: center;
+}
+
+@media (max-width: 767.98px) {
+  .card {
+    max-height: fit-content;
+  }
+}
+
+.card {
+  max-height: fit-content;
+  height: 85vh;
+}
+.card img {
+  height: 70%;
 }

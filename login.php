@@ -147,6 +147,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <div class="father d-flex justify-content-center align-items-center">
         <form action="" method="POST" class="login ">
+            <h1 class="d-block pt-3  m-auto fit-content" style="color:var(--main-color)">DeepSpace</h1>
             <h1 class="d-block pt-3 p-4 m-auto fit-content" style="color:var(--main-color)">login</h1>
             <label class="d-block  m-auto w-fit-content" for="name"><i
                     class="fa-solid fa-user fs-5 icon-color"></i></label>

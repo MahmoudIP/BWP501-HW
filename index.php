@@ -18,7 +18,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <style>
-
+    .card {
+        max-height: fit-content;
+    }
     </style>
 </head>
 
@@ -27,21 +29,22 @@
     session_start();
     $username = !empty($_SESSION)? $_SESSION["name"]:"";
 ?>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class=" navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
 
             <div class="log">
                 <a class="navbar-brand" href="./index.php">
                     <h1>DeepSpace </h1>
                 </a>
-                <?php echo $username?"<br><h5> $username </h5>":"" ?>
+                <?php
+                 echo $username?"<br><h3> $username </h3>":"" 
+                ?>
             </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
-                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" id="but-nav">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <div class=" navbar-collapse  navbar-but " id="navbar-but">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 fs-">
 
                     <li class="nav-item">
@@ -70,10 +73,6 @@
                     <!-- <li class="nav-item">  <a class="nav-link " aria-disabled="true" href="#">Disabled</a>   </li> -->
                 </ul>
 
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-color btn-outline-success" type="submit">Search</button>
-                </form>
             </div>
 
         </div>
@@ -91,7 +90,7 @@
         <div class="row grid gap m-0">
             <div class="p-2 col-12 col-md-6 col-lg-4 ">
                 <div class="card">
-                    <img src="./imgs/header.jpg" class="card-img-top" alt="..." />
+                    <img src="./imgs/header.jpg" class="card-img-top rounded" alt="..." />
 
                     <div class="card-body">
                         <h5 class="card-title">Card title</h5>
@@ -105,18 +104,46 @@
             </div>
             <?php 
            
+           require_once("./php/config.php");
+           $sql = "SELECT id_p,title,price,imag FROM `product`";
+
+           if($stmt = $con->prepare($sql)){
+            if($stmt->execute()){
+                $stmt->store_result();
+                $stmt->bind_result($id_p,$title,$price,$path);
+                while($stmt->fetch()){
+                    echo "
+                    <div class='p-2 col-12 col-md-6 col-lg-4 '>
+                        <div class='card'>
+                            <img src='./imgs/$path' class='card-img-top' alt='...' />
+        
+                            <div class='card-body'>
+                                <h5 class='card-title'>$title</h5>
+                                <p class='card-text'>
+                                    $price
+                                </p>
+                                <a href='./product.php?id=1' class='btn btn-primary'>View</a>
+                            </div>
+                        </div>
+                    </div>
+                    ";
+                }
+            }
+           }
+
+
+
             echo "
             <div class='p-2 col-12 col-md-6 col-lg-4 '>
                 <div class='card'>
-                    <img src='./imgs/header.jpg' class='card-img-top' alt='...' />
+                    <img src='./imgs/impr_952672-PDP.jpg' class='card-img-top' alt='...' />
 
                     <div class='card-body'>
                         <h5 class='card-title'>Card title</h5>
                         <p class='card-text'>
-                            Some quick example text to build on the card title and make up the bulk of
-                            the card's content.
+                           500
                         </p>
-                        <a href='./product.php?id=id' class='btn btn-primary'>Go somewhere</a>
+                        <a href='./product.php?id=1' class='btn btn-primary'>View</a>
 
                     </div>
                 </div>
@@ -149,7 +176,7 @@
 
         </div>
     </div>
-
+    <script src="js/public.js"></script>
     <script src="js/all.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/bootstrap.bundle.min.js.map"></script>

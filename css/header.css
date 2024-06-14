@@ -2,10 +2,12 @@
   position: sticky;
   top: 13px;
   backdrop-filter: blur(8px);
-  background-color: transparent !important;
+  background-color: rgb(0 0 0 / 9%) !important;
+
   border-radius: 14px;
   color: var(--main-color);
   padding: 0px;
+  z-index: 999;
 }
 
 .navbar-brand {
@@ -13,10 +15,18 @@
   font-size: 1.55rem;
 }
 
-.log h5 {
+.log h3 {
   margin-top: -46px;
 }
 
+.navbar-but {
+  overflow: hidden;
+  transition: 0.5s;
+  height: 0px;
+}
+.navbar-but-clicked {
+  height: 250px !important;
+}
 @media (max-width: 767.98px) {
   .log h5 {
     font-size: 14px;

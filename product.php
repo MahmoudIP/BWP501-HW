@@ -15,135 +15,76 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700;800&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="./css/header.css">
+
     <style>
     body {
         background-image: url(./imgs/header.jpg);
         background-size: cover;
     }
 
-    .navbar {
-        position: sticky;
-        top: 13px;
-        backdrop-filter: blur(8px);
-        background-color: transparent !important;
-        border-radius: 14px;
-        color: var(--main-color);
-        padding: 0px;
+    img {
+        height: 100%;
+        height: 100%;
     }
 
-    .navbar-brand {
-        color: var(--main-color);
-        font-size: 1.55rem;
+    .card {
+        padding: 10px;
+        width: 100%;
+        margin: 20px;
+
     }
 
-    .log h5 {
-        margin-top: -46px;
-    }
-
-    @media (max-width: 767.98px) {
-        .log h5 {
-            font-size: 14px;
+    @media only screen and (min-width:600px) {
+        .card {
+            width: 64vw;
+            max-width: 765px;
         }
     }
 
-    .form-control:active .form-control:hover,
-    .form-control:focus {
-        background-color: #10cab778 !important;
-    }
 
-    .navbar-brand:focus,
-    .navbar-brand:hover {
-        text-shadow: 0px 0px 9px var(--main-color);
-    }
 
-    .navbar-toggler:focus {
-        text-decoration: none;
-        outline: 0;
-        box-shadow: 0 0 0 0;
-    }
 
-    .nav-link {
-        color: white !important;
-    }
-
-    .btn-color:hover,
-    .btn-color:active,
-    .btn-color:focus {
-        background-color: var(--main-color) !important;
-        color: white !important;
-    }
-
-    .btn-color {
-        color: var(--main-color);
-        border-color: var(--main-color);
-    }
-
-    .btn-color:hover {
-        color: white;
-        border-color: var(--main-color);
-        background-color: var(--main-color);
-    }
-
-    .form-control {
-        background-color: #10cab74d;
-    }
-
-    .landing {
-        background-image: url(./imgs/header.jpg);
-        background-size: cover;
+    .landin {
+        /* background-image: url(./imgs/header.jpg); */
+        background-size: contain;
         height: calc(100vh);
         display: flex;
         justify-content: center;
         align-items: center;
         margin-top: -47px;
-
-    }
-
-    .landing h1 {
-        color: var(--main-color);
-        font-size: 4rem;
-    }
-
-    .active {
-        color: var(--main-color) !important;
-    }
-
-    .landing p {
-        text-wrap: wrap;
-        font-size: 1.5rem;
-        width: 51%;
-        margin: auto;
-        color: white;
-        text-align: center;
     }
     </style>
+
 </head>
 
 <body>
     <?php
     session_start();
     
-    $username = !empty($_SESSION)? $_SESSION["username"]:"";
+    $username = !empty($_SESSION)? $_SESSION["name"]:"";
+        
 ?>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class=" navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
 
             <div class="log">
                 <a class="navbar-brand" href="./index.php">
                     <h1>DeepSpace </h1>
                 </a>
-                <?php echo $username?"<br><h5> $username </h5>":"" ?>
+                <?php
+                 echo $username?"<br><h3> $username </h3>":"" 
+                ?>
             </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
-                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" id="but-nav">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <div class=" navbar-collapse  navbar-but" id="navbar-but">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 fs-">
 
                     <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="./index.php">Home</a>
+                        <a class="nav-link active" aria-current="page" href="./index.php">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Cart</a>
@@ -168,11 +109,115 @@
                     <!-- <li class="nav-item">  <a class="nav-link " aria-disabled="true" href="#">Disabled</a>   </li> -->
                 </ul>
 
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-color btn-outline-success" type="submit">Search</button>
-                </form>
             </div>
 
         </div>
     </nav>
+    <div class="landin">
+        <?php 
+                if(!empty($_GET['id']) ){
+                    $id = (int)$_GET['id'];
+                    require_once("./php/config.php");
+                    $sql="SELECT title,price,description,imag FROM product WHERE id_p = ? ";
+                    if($stmt=$con->prepare($sql)){
+                        $stmt->bind_param("i",$id);
+                        if($stmt->execute()){
+                            $stmt->store_result();
+                            // echo $stmt->num_rows;
+                            if($stmt->num_rows!=0){
+                                // echo "<h1>Product not found</h1>";
+                                $stmt->bind_result($title,$price,$description,$imag);
+                                if($stmt->fetch()){
+                                    //             echo "
+                                    
+                                    // <div class='card text-center p-10 pt-5 pb-5 w-5 h-5'>
+                                    //     <img src='./imgs/$imag' class='card-img-top' alt='...'  />
+                                        
+                                    //     <div class='card-body'>
+                                    //     <h5 class='card-title'>$title</h5>
+                                    //     <h4 >$price</h4>
+                                    //     <p class='card-text'>$description</p>
+                                    //         </div>
+                                    //         </div>
+                                            
+                                    //         ";
+
+                                    echo "
+                                    <div class='card mb-3' >
+  <div class='row g-0'>
+    <div class='col-md-7'>
+      <img src='./imgs/$imag' class='img-fluid rounded-start' alt='...'>
+    </div>
+    <div class='col-md-5'>
+      <div class='card-body'>
+        <h5 class='card-title'>$title</h5>
+        <h4 class='card-title'>$price</h4>
+        
+        <p class='card-text'>$description</p>
+        <p class='card-text'><small class='text-body-secondary'>Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+  </div>
+</div>
+                                    ";
+                                }
+                            }else{
+                                echo "
+                                <div class='p-2 col-12 col-md-6 col-lg-4 '>
+                           <div class='card' aria-hidden='true' style='height:100%;'>
+                               <img src='...' class='card-img-top' alt='...' style='height:50%' />
+                               <div class='card-body'>
+                                   <h5 class='card-title placeholder-glow'>
+                                       <span class='placeholder col-6'></span>
+                                       Not Found
+                                   </h5>
+                                   <p class='card-text placeholder-glow'>
+                                       <span class='placeholder col-7'></span>
+                                       <span class='placeholder col-4'></span>
+                                       <span class='placeholder col-4'></span>
+                                       <span class='placeholder col-6'></span>
+                                       <span class='placeholder col-8'></span>
+                                   </p>
+                                   <a class='btn btn-primary disabled placeholder col-6' aria-disabled='true'></a>
+                               </div>
+                           </div>
+                       </div>";
+                            }
+                        }
+                    }
+                    
+                    
+                }else{
+                    echo "
+                     <div class='p-2 col-12 col-md-6 col-lg-4 '>
+                <div class='card' aria-hidden='true' style='height:100%;'>
+                    <img src='...' class='card-img-top' alt='...' style='height:50%' />
+                    <div class='card-body'>
+                        <h5 class='card-title placeholder-glow'>
+                            <span class='placeholder col-6'></span>
+                        </h5>
+                        <p class='card-text placeholder-glow'>
+                            <span class='placeholder col-7'></span>
+                            <span class='placeholder col-4'></span>
+                            <span class='placeholder col-4'></span>
+                            <span class='placeholder col-6'></span>
+                            <span class='placeholder col-8'></span>
+                        </p>
+                        <a class='btn btn-primary disabled placeholder col-6' aria-disabled='true'></a>
+                    </div>
+                </div>
+            </div>";
+                }
+                ?>
+
+
+
+    </div>
+    <script src="js/public.js"></script>
+    <script src="js/all.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js.map"></script>
+
+
+
+</body>
