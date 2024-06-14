@@ -10,7 +10,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     $username= $_POST["username"];
     $email=$_POST["email"];
     $password= $_POST["pass"];
-    $confirm= $_POST["consfirm-pass"];
+    $confirm= $_POST["confirm-pass"];
 
     if(!empty($username)&& !empty($email) && !empty($password) && !empty($confirm) ){
         
@@ -27,7 +27,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                     if($stmt->num_rows != 0){
                        $error_email= "this email is already exists!";
                     }else{
-                        creat_account($username,$email,$password);
+                        creat_account($username,$email,$password,$con);
                     }
                 }
                 $stmt->close();
@@ -48,14 +48,14 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 
 
 
-function creat_account($username,$email,$password){
+function creat_account($username,$email,$password,$con){
     require_once "./php/config.php";
     $sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
     if($stmt = $con->prepare($sql)){
     $hash_pass=password_hash($password,PASSWORD_DEFAULT);
         $stmt->bind_param("sss", $username, $email, $hash_pass);
         if( $stmt->execute()){
-            $sql="SELECT id FROM users WHERE email = ?";
+            $sql="SELECT id_u FROM users WHERE email = ?";
             if($stmt=$con->prepare($sql)){
                 $stmt->bind_param("s", $email);
                 if($stmt->execute()){
@@ -64,6 +64,8 @@ function creat_account($username,$email,$password){
                         $stmt->bind_result($id);
                         $stmt->fetch();
                         $_SESSION["id"]=$id;
+                        $_SESSION["name"]=$username;
+                        $_SESSION["email"]=$email;
                         header("location:index.php");
                         $con->close();
                         exit();
@@ -90,7 +92,7 @@ function creat_account($username,$email,$password){
     <link rel="stylesheet" href="css/all.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css.map">
-    <title>login DeepSpace</title>
+    <title>Singup DeepSpace</title>
     <style>
     :root {
         --main-color: #10cab7;
@@ -121,6 +123,7 @@ function creat_account($username,$email,$password){
     .login input,
     .login label {
         margin: 5px auto !important;
+        text-align: center;
     }
 
     .err-color {
@@ -176,8 +179,13 @@ function creat_account($username,$email,$password){
 <body>
 
     <div class="father d-flex justify-content-center align-items-center">
-        <form action="" method="POST" class="login ">
+        <form action="" method="POST" class="login " id="form">
             <h1 class="d-block pt-3 p-4 m-auto fit-content" style="color:var(--main-color)">Singup</h1>
+            <label id="public-error" class='d-block  m-auto w-fit-content err-color'>
+                <?php echo $public_error? $public_error:"" ?> </label>
+
+
+
             <label class="d-block  m-auto w-fit-content" for="name">
                 <i class="fa-solid fa-user fs-5 icon-color"></i></label>
             <input class=" d-block  m-auto " type="text" name="username" id="username" placeholder="username">
@@ -199,16 +207,16 @@ function creat_account($username,$email,$password){
 
 
 
-            <label class="d-block m-auto" for="pass"> <i class="fa-solid fa fs-5 icon-color">Con<i
+            <label class="d-block m-auto" for="confirm-pass"> <i class="fa-solid fa fs-5 icon-color">Con<i
                         class="fa-solid fa-key fs-5 icon-color">firm</i></i></label>
-            <input class="d-block m-auto" type="password" name="consfirm-pass" id="con-pass"
+            <input class="d-block m-auto" type="password" name="confirm-pass" id="confirm-pass"
                 placeholder="Confirm Password">
             <label id="error-confirm" class='d-block  m-auto w-fit-content err-color'>
                 <?php echo $error_confirm? $error_confirm:"" ?>
             </label>
 
 
-            <input class="d-block  " type="submit" value="login">
+            <input class="d-block" id="submit" type="submit" value="login">
             <div class=" links d-flex align-items-center justify-content-between ">
                 Have Account?<a class="pe-2" href="./login.php">Login</a>
             </div>
@@ -221,9 +229,7 @@ function creat_account($username,$email,$password){
     let er_email = document.getElementById("error-email");
     let email = document.getElementById("email");
     email.addEventListener("change", (e) => {
-        // alert(email.value);
         if (email.value.trim().search(/^[a-zA-Z0-9\.+%-_]{3,}@[a-zA-Z]{3,}\.[a-zA-Z]{3}$/) == -1) {
-            // alert("the email is not correct ");
             er_email.textContent = "Invalid Email should be like : example@exp.com";
             email.style.backgroundColor = "#ff000082 ";
             email.focus();
@@ -258,14 +264,36 @@ function creat_account($username,$email,$password){
         }
     });
 
+    let login = document.getElementById("submit"),
+        username = document.getElementById("username"),
+        public_error = document.getElementById("public-error");
+    login.disabled = "false";
+
+    confirm.addEventListener("blur", (e) => {
+        if (email.value == "" && pass.value == "" && confirm.value == "" && username.value == "") {
+            public_error.textContent = "All Fields Are Required";
+        } else {
+
+            public_error.textContent = "";
+        }
+    });
     confirm.addEventListener("change", (e) => {
-        if (pass.value != confirm.value) {
+        if (pass.value !== confirm.value) {
+            confirm.style.backgroundColor = "#ff000082";
             errorConfirm.textContent = "Invalid Confirm";
-            errorConfirm.style.backgroundColor = "#ff000082";
             confirm.focus();
         } else {
             errorConfirm.textContent = "";
-            errorConfirm.style.backgroundColor = "#10c3ca4a";
+            confirm.style.backgroundColor = "#10c3ca4a";
+        }
+    });
+    document.getElementById("form").addEventListener("mouseover", (e) => {
+        if (email.value !== "" && pass.value !== "" && confirm.value === pass.value && username.value !== "") {
+            login.disabled = "";
+            login.style.backgroundColor = "green"
+        } else {
+            login.disabled = "false";
+            login.style.backgroundColor = "#00800000"
         }
     });
     </script>

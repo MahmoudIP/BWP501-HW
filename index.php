@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css.map">
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/index.css">
     <!-- Google Fonts -->
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,8 +25,7 @@
 <body>
     <?php
     session_start();
-    
-    $username = !empty($_SESSION)? $_SESSION["username"]:"";
+    $username = !empty($_SESSION)? $_SESSION["name"]:"";
 ?>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
@@ -87,43 +86,69 @@
         </div>
     </div>
     <!-- End landing  -->
-    <div class="content">
-        <div class="card">
-            <img src="..." class="card-img-top" alt="..." />
 
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                    Some quick example text to build on the card title and make up the bulk of
-                    the card's content.
-                </p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+    <div class=" text-center">
+        <div class="row grid gap m-0">
+            <div class="p-2 col-12 col-md-6 col-lg-4 ">
+                <div class="card">
+                    <img src="./imgs/header.jpg" class="card-img-top" alt="..." />
+
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">
+                            Some quick example text to build on the card title and make up the bulk of
+                            the card's content.
+                        </p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
             </div>
-        </div>
+            <?php 
+           
+            echo "
+            <div class='p-2 col-12 col-md-6 col-lg-4 '>
+                <div class='card'>
+                    <img src='./imgs/header.jpg' class='card-img-top' alt='...' />
 
-        <div class="card" aria-hidden="true">
-            <img src="..." class="card-img-top" alt="..." />
-            <div class="card-body">
-                <h5 class="card-title placeholder-glow">
-                    <span class="placeholder col-6"></span>
-                </h5>
-                <p class="card-text placeholder-glow">
-                    <span class="placeholder col-7"></span>
-                    <span class="placeholder col-4"></span>
-                    <span class="placeholder col-4"></span>
-                    <span class="placeholder col-6"></span>
-                    <span class="placeholder col-8"></span>
-                </p>
-                <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
+                    <div class='card-body'>
+                        <h5 class='card-title'>Card title</h5>
+                        <p class='card-text'>
+                            Some quick example text to build on the card title and make up the bulk of
+                            the card's content.
+                        </p>
+                        <a href='./product.php?id=id' class='btn btn-primary'>Go somewhere</a>
+
+                    </div>
+                </div>
             </div>
-        </div>
+            "
+            ?>
 
+
+
+
+            <div class="p-2 col-12 col-md-6 col-lg-4 ">
+                <div class="card" aria-hidden="true" style="height:100%;">
+                    <img src="..." class="card-img-top" alt="..." style="height:50%" />
+                    <div class="card-body">
+                        <h5 class="card-title placeholder-glow">
+                            <span class="placeholder col-6"></span>
+                        </h5>
+                        <p class="card-text placeholder-glow">
+                            <span class="placeholder col-7"></span>
+                            <span class="placeholder col-4"></span>
+                            <span class="placeholder col-4"></span>
+                            <span class="placeholder col-6"></span>
+                            <span class="placeholder col-8"></span>
+                        </p>
+                        <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
     </div>
-
-
-
-
-
 
     <script src="js/all.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>

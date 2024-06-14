@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = trim($_POST['pass']);
     if($email==""){$error_email="please type your email"; }
     else{
-        $sql = "SELECT id, name,password FROM users WHERE email = ?";
+        $sql = "SELECT id_u, name,password FROM users WHERE email = ?";
         if ($stmt = $con->prepare($sql)) {
             $stmt->bind_param("s", $email);
 
@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             if (password_verify($password,$hashed_password)  ) {
                             echo "Login successful!";
 
-                            $_SESSION['username'] = $username;
+                            $_SESSION['name'] = $username;
                             $_SESSION["email"]=$email;
                             $_SESSION['id']=$id;    
                         header("Location: index.php");

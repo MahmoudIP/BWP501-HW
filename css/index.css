@@ -1,13 +1,13 @@
-* {
-  margin: 0px auto;
-}
 body {
-  background-image: url(./imgs/header.jpg);
-  background-size: cover;
+  background-image: url(../imgs/header.jpg);
+  background-size: contain;
+}
+.active {
+  color: var(--main-color) !important;
 }
 
 .landing {
-  background-image: url(./imgs/header.jpg);
+  background-image: url(../imgs/header.jpg);
   background-size: cover;
   height: calc(100vh);
   display: flex;
@@ -19,10 +19,6 @@ body {
 .landing h1 {
   color: var(--main-color);
   font-size: 4rem;
-}
-
-.active {
-  color: var(--main-color) !important;
 }
 
 .landing p {
