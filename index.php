@@ -7,6 +7,7 @@
     <title>DeepSpace</title>
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/all.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css.map">
     <link rel="stylesheet" href="css/main.css">
@@ -29,59 +30,34 @@
     session_start();
     $username = !empty($_SESSION)? $_SESSION["name"]:"";
 ?>
-    <nav class=" navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-
-            <div class="log">
-                <a class="navbar-brand" href="./index.php">
-                    <h1>DeepSpace </h1>
-                </a>
-                <?php
-                 echo $username?"<br><h3> $username </h3>":"" 
-                ?>
-            </div>
-            <button class="navbar-toggler" type="button" id="but-nav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class=" navbar-collapse  navbar-but " id="navbar-but">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 fs-">
-
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="./index.php">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Cart</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo empty($_SESSION)?"./login.php":"./logout.php" ?>">
-
-                            <span class=".logflag">
-                                <?php echo empty($_SESSION)?"login":"logout" ?>
-                            </span>
+    <nav class="ms-md-2 me-md-2 mb-8 ps-1 pe-2">
+        <div class="col-12 d-flex justify-content-between  p-1 container">
+            <div class="col-10 d-block d-md-flex nav-content justify-content align-items-end">
+                <div class="logo col-4  ">
+                    <h1 class="m-0">DeepSpace</h1>
+                    <h3><?php echo $username?$username:"" ?></h3>
+                </div>
+                <ul class="col-6 d-block d-md-flex justify-content-between " id="navbar-but">
+                    <li class="ms-3 active"><a href="index.php">Home</a></li>
+                    <li class="ms-3"><a href="">Product</a></li>
+                    <li class="ms-3"><a href="cart.php">Cart</a></li>
+                    <li class="ms-3"><a href="cart.php">About</a></li>
+                    <li class="ms-3"><a
+                            href='./<?php echo $username?"login.php":"logout.php" ?>'><?php echo $username?"Logout":"Login" ?>
                         </a>
                     </li>
-
-
-
-                    <!-- <li class="nav-item">  <a class="nav-link " aria-disabled="true" href="#">Disabled</a>   </li> -->
                 </ul>
-
             </div>
-
+            <div class="ps-2 pe-2 col-2 m-2 mt-3 d-md-none nav-but" id="nav-but">
+                <i class="fa-solid fa-bars"></i>
+            </div>
         </div>
     </nav>
     <!-- Start landing  -->
     <div class="landing">
         <div class="intro-text">
-            <h1 class="d-flex justify-content-center align-itmes-center">Hello There </h1>
-            <p class="d-flex justify-content-center align-itmes-center">Fast and secure, be good </p>
+            <h1 class="d-flex justify-content-center align-itmes-center">Hello There </h1><br><br>
+            <p class="d-flex justify-content-center align-itmes-center">We Here for you, be Cool be Fantastic </p>
         </div>
     </div>
     <!-- End landing  -->
@@ -90,7 +66,7 @@
         <div class="row grid gap m-0">
             <div class="p-2 col-12 col-md-6 col-lg-4 ">
                 <div class="card">
-                    <img src="./imgs/header.jpg" class="card-img-top rounded" alt="..." />
+                    <img src="./imgs/header.jpg" class="card-img-top rounded" loading="lazy" alt="..." />
 
                     <div class="card-body">
                         <h5 class="card-title">Card title</h5>
@@ -115,7 +91,7 @@
                     echo "
                     <div class='p-2 col-12 col-md-6 col-lg-4 '>
                         <div class='card'>
-                            <img src='./imgs/$path' class='card-img-top' alt='...' />
+                            <img src='./imgs/$path' class='card-img-top'loading='lazy' alt='...' />
         
                             <div class='card-body'>
                                 <h5 class='card-title'>$title</h5>
@@ -136,7 +112,7 @@
             echo "
             <div class='p-2 col-12 col-md-6 col-lg-4 '>
                 <div class='card'>
-                    <img src='./imgs/impr_952672-PDP.jpg' class='card-img-top' alt='...' />
+                    <img src='./imgs/impr_952672-PDP.jpg' class='card-img-top' loading='lazy' alt='...' />
 
                     <div class='card-body'>
                         <h5 class='card-title'>Card title</h5>

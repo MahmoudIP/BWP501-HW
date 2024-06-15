@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css.map">
     <link rel="stylesheet" href="css/main.css">
+    <!-- <link rel="stylesheet" href="css/header.css"> -->
     <!-- Google Fonts -->
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +21,7 @@
     <style>
     body {
         background-image: url(./imgs/header.jpg);
-        background-size: cover;
+        background-size: contain;
     }
 
     img {
@@ -42,9 +43,6 @@
         }
     }
 
-
-
-
     .landin {
         /* background-image: url(./imgs/header.jpg); */
         background-size: contain;
@@ -65,7 +63,7 @@
     $username = !empty($_SESSION)? $_SESSION["name"]:"";
         
 ?>
-    <nav class=" navbar navbar-expand-lg bg-body-tertiary">
+    <!-- <nav class=" navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
 
             <div class="log">
@@ -73,7 +71,7 @@
                     <h1>DeepSpace </h1>
                 </a>
                 <?php
-                 echo $username?"<br><h3> $username </h3>":"" 
+                //  echo $username?"<br><h3> $username </h3>":"" 
                 ?>
             </div>
             <button class="navbar-toggler" type="button" id="but-nav">
@@ -96,24 +94,47 @@
                         <a class="nav-link" href="#">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo empty($_SESSION)?"./login.php":"./logout.php" ?>">
+                        <a class="nav-link" href="<?php // echo empty($_SESSION)?"./login.php":"./logout.php" ?>">
 
                             <span class=".logflag">
-                                <?php echo empty($_SESSION)?"login":"logout" ?>
+                                <?php //echo empty($_SESSION)?"login":"logout" ?>
                             </span>
                         </a>
                     </li>
 
 
 
-                    <!-- <li class="nav-item">  <a class="nav-link " aria-disabled="true" href="#">Disabled</a>   </li> -->
+                    <li class="nav-item">  <a class="nav-link " aria-disabled="true" href="#">Disabled</a>   </li>
                 </ul>
 
             </div>
 
         </div>
+    </nav> -->
+    <nav class="ms-md-2 me-md-2 mb-8 ps-1 pe-2">
+        <div class="col-12 d-flex justify-content-between  p-1 container">
+            <div class="col-10 d-block d-md-flex nav-content justify-content align-items-end">
+                <div class="logo col-4  ">
+                    <h1 class="m-0">DeepSpace</h1>
+                    <h3><?php echo $username?$username:"" ?></h3>
+                </div>
+                <ul class="col-6 d-block d-md-flex justify-content-between " id="navbar-but">
+                    <li class="ms-3"><a href="index.php">Home</a></li>
+                    <li class="ms-3"><a href="">Product</a></li>
+                    <li class="ms-3"><a href="cart.php">Cart</a></li>
+                    <li class="ms-3"><a href="cart.php">About</a></li>
+                    <li class="ms-3"><a
+                            href='./<?php echo $username?"login.php":"logout.php" ?>'><?php echo $username?"Logout":"Login" ?>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="ps-2 pe-2 col-2 m-2 mt-3 d-md-none nav-but" id="nav-but">
+                <span class="navbar-toggler-icon"></span>
+            </div>
+        </div>
     </nav>
-    <div class="landin">
+    <div class="landin container">
         <?php 
                 if(!empty($_GET['id']) ){
                     $id = (int)$_GET['id'];
@@ -128,19 +149,7 @@
                                 // echo "<h1>Product not found</h1>";
                                 $stmt->bind_result($title,$price,$description,$imag);
                                 if($stmt->fetch()){
-                                    //             echo "
-                                    
-                                    // <div class='card text-center p-10 pt-5 pb-5 w-5 h-5'>
-                                    //     <img src='./imgs/$imag' class='card-img-top' alt='...'  />
-                                        
-                                    //     <div class='card-body'>
-                                    //     <h5 class='card-title'>$title</h5>
-                                    //     <h4 >$price</h4>
-                                    //     <p class='card-text'>$description</p>
-                                    //         </div>
-                                    //         </div>
-                                            
-                                    //         ";
+                                   
 
                                     echo "
                                     <div class='card mb-3' >
