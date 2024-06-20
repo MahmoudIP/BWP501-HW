@@ -16,6 +16,24 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `cart`
+--
+
+DROP TABLE IF EXISTS `cart`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `cart` (
+  `id_u` int NOT NULL,
+  `id_p` int NOT NULL,
+  `count` int NOT NULL,
+  KEY `id_u_idx` (`id_u`),
+  KEY `id_p_idx` (`id_p`),
+  CONSTRAINT `id_p` FOREIGN KEY (`id_p`) REFERENCES `product` (`id_p`),
+  CONSTRAINT `id_u` FOREIGN KEY (`id_u`) REFERENCES `users` (`id_u`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `cart`
 --
 
@@ -33,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-14  8:51:58
+-- Dump completed on 2024-06-20 20:20:37

@@ -16,12 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `users` (
+  `id_u` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `email` varchar(45) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_u`),
+  UNIQUE KEY `id_UNIQUE` (`id_u`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `users`
 --
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'mhmod_212637','mahmoude@gmail.com','$2y$10$7SGhAZ3YWaSICw1sauD3E.6uswfp/nAjrn44cGNqNOQG4h.3ibTgS'),(2,'mhmod_123456','mm@gmail.com','$2y$10$.tj/Qjf7CXdPj9eVLOwPiuwtKPpj6Hony0shMBrS9joedhxDir7.u'),(5,'Moon','moon@gmail.com','$2y$10$wQwR1JfeMHy7CRFsULk6DOJuQ//qrBmKmMDxNNde.KbFwfXnvzU9O'),(6,'moon2','moon2@gmail.com','$2y$10$M12LvvODJOzx.bcc0cwX0OI/Tgp5.HZxUoOecmwPRD7lytzcG0TMm'),(7,'Moon3','moon3@gmail.com','$2y$10$MhynGj09gS1zRLSUcTh5WuvkFQESc7l8ydN5k87ufBpKmvMkR4pXG');
+INSERT INTO `users` VALUES (1,'mhmod_212637','mahmoude@gmail.com','$2y$10$7SGhAZ3YWaSICw1sauD3E.6uswfp/nAjrn44cGNqNOQG4h.3ibTgS');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -34,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-14  8:51:58
+-- Dump completed on 2024-06-20 20:20:36
