@@ -1,5 +1,5 @@
 <?php 
-require_once "./php/config.php";
+require_once "./config.php";
 session_start();
 
 $error_email="";
@@ -7,10 +7,13 @@ $error_password="";
 $error_confirm="";
 $public_error="";
 if($_SERVER["REQUEST_METHOD"]=="POST"){
-    $username= $_POST["username"];
-    $email=$_POST["email"];
-    $password= $_POST["pass"];
-    $confirm= $_POST["confirm-pass"];
+    // $username= trim($_POST["username"]);
+    $username = trim(filter_input(INPUT_POST,"username",FILTER_SANITIZE_SPECIAL_CHARS));
+    // $email=trim($_POST["email"]);
+    $email=trim(filter_input(INPUT_POST,"email",FILTER_SANITIZE_EMAIL));
+    $password= trim($_POST["pass"]);
+    $confirm= trim($_POST["confirm-pass"]);
+
 
     if(!empty($username)&& !empty($email) && !empty($password) && !empty($confirm) ){
         
@@ -34,11 +37,12 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 
             
             }else{
-                echo "Error: Could not prapare query: " . $con->error;
+                // echo "Error: Could not prapare query: " . $con->error;
+                $public_error="Please Retry Again";
             }
 
         }else{
-            $error_confirm= "please confirm the password";
+            $error_confirm= "Please confirm the password";
         }
     }else{
         $public_error = "All Fields Required ";
@@ -49,7 +53,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 
 
 function creat_account($username,$email,$password,$con){
-    require_once "./php/config.php";
+    require_once "./config.php";
     $sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
     if($stmt = $con->prepare($sql)){
     $hash_pass=password_hash($password,PASSWORD_DEFAULT);
@@ -66,7 +70,7 @@ function creat_account($username,$email,$password,$con){
                         $_SESSION["id"]=$id;
                         $_SESSION["name"]=$username;
                         $_SESSION["email"]=$email;
-                        header("location:index.php");
+                        header("location:../index.php");
                         $con->close();
                         exit();
                     }   
@@ -89,90 +93,13 @@ function creat_account($username,$email,$password,$con){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/all.min.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css.map">
+    <link rel="stylesheet" href="../css/all.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css.map">
+    <link rel="stylesheet" href="../css/singup.css">
     <title>Singup DeepSpace</title>
     <style>
-    :root {
-        --main-color: #10cab7;
-        --secondary-color: #2c4755;
-    }
 
-    .father {
-        width: 100%;
-        height: 100vh;
-        background-image: url('./imgs/header.jpg');
-        background-size: cover;
-
-    }
-
-    .login {
-        background-color: #0000007a;
-        text-align: center;
-        width: 90%;
-        backdrop-filter: blur(10px);
-        padding: 0px 50px 80px;
-        height: fit-content;
-        border-bottom: 3px solid var(--main-color);
-        border-radius: 21px;
-        box-shadow: 0px 8px 19px var(--main-color);
-    }
-
-
-    .login input,
-    .login label {
-        margin: 5px auto !important;
-        text-align: center;
-    }
-
-    .err-color {
-        color: red;
-    }
-
-    .login input {
-        background-color: #10c3ca4a;
-        color: white;
-        padding: 3px 11px;
-    }
-
-    .login input[type="submit"] {
-        background-color: green;
-        padding: 3px 20px;
-        margin: 26px auto auto !important;
-    }
-
-
-
-    @media only screen and (min-width:600px) {
-        .login {
-            min-width: 420px;
-            width: 30vw;
-        }
-    }
-
-    input {
-        border-radius: 7px;
-        padding: 2px 3px;
-        outline: none;
-        width: 80%;
-    }
-
-    .login .links {
-        color: aqua;
-        width: 80%;
-        margin: auto;
-        padding: 5px 0px;
-    }
-
-    .login .links a {
-        text-decoration: none;
-        color: #00ffe5;
-    }
-
-    .icon-color {
-        color: var(--main-color);
-    }
     </style>
 </head>
 
@@ -189,28 +116,29 @@ function creat_account($username,$email,$password,$con){
 
             <label class="d-block  m-auto w-fit-content" for="name">
                 <i class="fa-solid fa-user fs-5 icon-color"></i></label>
-            <input class=" d-block  m-auto " type="text" name="username" id="username" placeholder="username">
+            <input required class=" d-block  m-auto " type="text" name="username" id="username" placeholder="username">
 
 
 
 
             <label class="d-block  m-auto w-fit-content" for="email">
                 <i class="fa-solid fa-email fs-5 icon-color">Email</i></label>
-            <input class=" d-block  m-auto " type="text" name="email" id="email" placeholder="Email : example@ex.com">
+            <input required class=" d-block  m-auto " type="text" name="email" id="email"
+                placeholder="Email : example@ex.com">
             <label id="error-email" class='d-block  m-auto w-fit-content err-color'>
                 <?php echo $error_email? $error_email:"" ?> </label>
 
 
 
             <label class="d-block m-auto" for="pass"><i class="fa-solid fa-key fs-5 icon-color"></i></label>
-            <input class="d-block m-auto" type="password" name="pass" id="pass" placeholder="Password">
+            <input required class="d-block m-auto" type="password" name="pass" id="pass" placeholder="Password">
             <label id="error-pass" class='d-block  m-auto w-fit-content err-color'> </label>
 
 
 
             <label class="d-block m-auto" for="confirm-pass"> <i class="fa-solid fa fs-5 icon-color">Con<i
                         class="fa-solid fa-key fs-5 icon-color">firm</i></i></label>
-            <input class="d-block m-auto" type="password" name="confirm-pass" id="confirm-pass"
+            <input required class="d-block m-auto" type="password" name="confirm-pass" id="confirm-pass"
                 placeholder="Confirm Password">
             <label id="error-confirm" class='d-block  m-auto w-fit-content err-color'>
                 <?php echo $error_confirm? $error_confirm:"" ?>

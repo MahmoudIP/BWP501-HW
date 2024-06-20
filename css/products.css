@@ -1,0 +1,75 @@
+.card {
+  max-height: fit-content;
+  transition: 0.5s;
+}
+
+.add {
+  background-color: green;
+}
+
+.add:hover {
+  background-color: var(--bs-form-valid-border-color);
+}
+
+.remove {
+  background-color: var(--bs-danger);
+}
+
+.remove:hover {
+  background-color: var(--bs-danger);
+}
+
+.btns {
+  text-align: center;
+  width: 30px;
+  padding: 1px;
+}
+
+.quantity {
+  outline: none;
+  border: none;
+  box-shadow: 0px 0px 8px black;
+  border-radius: 10px;
+  text-align: center;
+  padding: 1px;
+}
+
+.mes a {
+  text-decoration: none;
+  color: var(--main-color);
+}
+
+.mes {
+  /* display: none; */
+  position: absolute;
+  bottom: 27%;
+  background-color: #ff9999e6;
+  left: 50%;
+  padding: 11px 31px;
+  border-radius: 16px;
+  text-align: center;
+  margin: auto;
+  transform: translate(-50%);
+  width: 80%;
+  animation: mess;
+  animation-duration: 5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes mess {
+  0% {
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.9;
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

@@ -1,16 +1,13 @@
 <?php
 
-
-
-
-//login.php
-require "./php/config.php";
+require "./config.php";
 session_start();
 
 $error_pass="";
 $error_email="";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email =trim( $_POST['email']);
+    // $email =trim( $_POST['email']);
+    $email=trim(filter_input(INPUT_POST,"email",FILTER_SANITIZE_EMAIL));
     $password = trim($_POST['pass']);
     if($email==""){$error_email="please type your email"; }
     else{
@@ -31,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $_SESSION['name'] = $username;
                             $_SESSION["email"]=$email;
                             $_SESSION['id']=$id;    
-                        header("Location: index.php");
+                        header("Location: ../index.php");
                         $con->close();
                             exit();
                             } else {
@@ -57,89 +54,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/all.min.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css.map">
+    <link rel="stylesheet" href="../css/all.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css.map">
+    <link rel="stylesheet" href="../css/login.css">
     <title>login DeepSpace</title>
     <style>
-    :root {
-        --main-color: #10cab7;
-        --secondary-color: #2c4755;
-    }
 
-    .father {
-        width: 100%;
-        height: 100vh;
-        background-image: url('./imgs/header.jpg');
-        background-size: cover;
-
-    }
-
-    .err-color {
-        color: red;
-    }
-
-    .login {
-        background-color: #0000007a;
-        text-align: center;
-        width: 90%;
-        backdrop-filter: blur(10px);
-        padding: 0px 50px 80px;
-        height: fit-content;
-        border-bottom: 3px solid var(--main-color);
-        border-radius: 21px;
-        box-shadow: 0px 8px 19px var(--main-color);
-    }
-
-
-    .login input,
-    .login label {
-        margin: 5px auto !important;
-    }
-
-    .login input {
-        background-color: #10c3ca4a;
-        color: white;
-        padding: 3px 11px;
-    }
-
-    .login input[type="submit"] {
-        background-color: green;
-        padding: 3px 20px;
-        margin: 26px auto auto !important;
-    }
-
-
-
-    @media only screen and (min-width:600px) {
-        .login {
-            min-width: 420px;
-            width: 30vw;
-        }
-    }
-
-    input {
-        border-radius: 7px;
-        padding: 2px 3px;
-        outline: none;
-        width: 80%;
-    }
-
-    .login .links {
-        color: aqua;
-        width: 80%;
-        margin: auto;
-        padding: 5px 0px;
-    }
-
-    .login .links a {
-        text-decoration: none;
-        color: #00ffe5;
-    }
-
-    .icon-color {
-        color: var(--main-color);
-    }
     </style>
 </head>
 
@@ -151,11 +72,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <h1 class="d-block pt-3 p-4 m-auto fit-content" style="color:var(--main-color)">login</h1>
             <label class="d-block  m-auto w-fit-content" for="name"><i
                     class="fa-solid fa-user fs-5 icon-color"></i></label>
-            <input class=" d-block  m-auto " type="text" name="email" id="" placeholder="email">
+            <input class=" d-block  m-auto " type="text" name="email" id="email" placeholder="email">
             <?php echo $error_email? " <label class='d-block  m-auto w-fit-content err-color' > $error_email  </label>":""  ?>
 
             <label class="d-block m-auto" for="pass"><i class="fa-solid fa-key fs-5 icon-color"></i></label>
-            <input class="d-block m-auto" type="password" name="pass" id="" placeholder="Password">
+            <input class="d-block m-auto" type="password" name="pass" id="pass" placeholder="Password">
             <?php echo $error_pass? " <label class='d-block  m-auto w-fit-content err-color' > $error_pass  </label>":""  ?>
             <input class="d-block  " type="submit" value="login">
             <div class=" links d-flex align-items-center justify-content-between ">
