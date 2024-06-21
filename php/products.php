@@ -61,7 +61,7 @@
             <?php 
            
            require_once("../php/config.php");
-           $sql = "SELECT id_p,description,title,price,imag FROM `product`";
+           $sql = "SELECT id_p,description,title,price,imag FROM `product` WHERE stock>0";
 
            if($stmt = $con->prepare($sql)){
             if($stmt->execute()){

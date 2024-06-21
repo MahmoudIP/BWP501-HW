@@ -8,11 +8,10 @@ if(isset($_SESSION['name'])){
         
         if($_POST["type_modify"]=="Add"){
             
+            $count = isset($_POST['count'])?$_POST['count']:1;
+
             $productId = $_POST['id'];
-            setcookie($name."[cart][$productId]",1,time()+3600,"/");
-            //  $quantity;
-            
-            
+            setcookie($name."[cart][$productId]",$count,time()+3600,"/");
             echo json_encode(['status' => 'success', 'message' => 'added']);
             // } else {
                 // echo json_encode(['status' => 'error', 'message' => 'Invalid request']);

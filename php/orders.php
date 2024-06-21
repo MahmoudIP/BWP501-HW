@@ -20,63 +20,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <style>
-    .shopping-cart {
-        border-radius: 8px;
-        background-color: #eee;
-        /* background-color: #3e4451; */
-    }
 
-    .butn-delete {
-        height: fit-content;
-        width: fit-content;
-        padding: 10px;
-        margin: 2px;
-        background-color: #dc3545;
-        border-radius: 8px;
-    }
-
-    .btns,
-    .count {
-        border-radius: 8px;
-    }
-
-    .count {
-        width: 100px;
-    }
-
-    .plus-btn {
-        background-color: #198754;
-    }
-
-    .minus-btn {
-        background-color: #dc3545;
-    }
-
-    @media only screen and (max-width: 600px) {
-        .butn-delete {
-            position: absolute;
-            top: 0px;
-            left: 0px;
-
-            transform: translate(25%, 32%);
-        }
-    }
-
-    .item {
-        position: relative;
-        height: 25vh;
-        display: flex;
-        overflow: hidden;
-        align-items: center;
-        justify-content: space-evenly;
-        box-shadow: 0px 0px 8px black;
-    }
-
-
-    .item img {
-        width: 200px;
-        height: 165px;
-    }
     </style>
 </head>
 
@@ -112,21 +56,25 @@
     <div class="content container">
         <div class="shopping-cart">
             <!-- Title -->
-            <div class="title title p-3 text-center">
+            <h2 class="title title p-3 text-center">
                 Shopping Bag
-            </div>
+            </h2>
+            <span class="d-sm-none total-cart-price">
+                <label id="total-cart">Total Cart</label><br>
+            </span>
             <?php 
         require_once("./config.php");
-           $sql = "SELECT id_p,title,price,imag FROM `product`";
-
-           if($stmt = $con->prepare($sql)){
-            if($stmt->execute()){
-                $stmt->store_result();
-                $stmt->bind_result($id_p,$title,$price,$path);
-                while($stmt->fetch()){
-                     ?>
+            foreach($_COOKIE[$username]['cart'] as $key => $val){
+                $sql = "SELECT id_p,title,price,imag,stock FROM `product` WHERE id_p = ? ";
+                if($stmt = $con->prepare($sql)){
+                    $stmt->bind_param("i",$key);
+                    if($stmt->execute()){
+                        $stmt->store_result();
+                        $stmt->bind_result($id_p,$title,$price,$path,$stock);
+                        while($stmt->fetch()){
+                            ?>
             <!-- Product #1 -->
-            <div class='item text-center col-md-12'>
+            <div class='item d-sm-flex text-center col-md-12'>
                 <div class='buttons butn-delete col-md-1'>
 
                     <i class="fa-solid fa-xmark"></i>
@@ -134,34 +82,114 @@
                 <div class='image col-md-3'>
                     <img class='image' src='../imgs/<?php echo $path?>' alt='$title' />
                 </div>
-                <div class='description col-md-7 d-md-flex  justify-content-between'>
+                <div class='description col-md-7 d-sm-flex  justify-content-between align-items-center'>
                     <span class="col-md-4">
                         <h4><?php echo $title ?></h4>
-                        <h4><?php echo $price."$" ?></h4>
+                        <h5 name="price" price="<?php echo $price?>">Price: <?php echo $price."$" ?></h5>
+                        <h5 name="stock" stock="<?php echo $stock ?>">stock: <?php echo $stock ?></h5>
                     </span>
-                    <div class='quantity col-md-8'>
-
+                    <div class='quantity col-md-5 align-items-center'>
                         <button class='plus-btn btns' type='button' name='button'>
                             <i class="fa-solid fa-plus"></i> </button>
-                        <input type='text' class="count text-center" name='name' value='5' readonly>
+                        <input type='text' class="count text-center" name='name' value="1" readonly>
                         <button class='minus-btn btns' type='button' name='button'>
                             <i class="fa-solid fa-minus"></i>
                         </button>
                     </div>
-                    <div class="">
-
-                        <input type='text' class="price text-center" name='name' value='5' readonly>
+                    <div class="price-content col-md-3 align-items-center">
+                        <label class="p  rice fs-5 ">Total :</label><br>
+                        <input type='text' class="cost price text-center mb-4" readonly>
                     </div>
+                    <label class="id_p d-none" id_p="<?php echo $id_p ?>"></label>
                 </div>
             </div>
             <?php
-    
-                    }
+            }//end foreach
+                } ?>
+
+            <?php
             }
            }
            ?>
+
         </div>
     </div>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let cartButtons = document.querySelectorAll(".item  .butn-delete");
+        cartButtons.forEach(butn => {
+            let card = butn.closest(".item");
+            let id = card.querySelector(".id_p").getAttribute("id_p");
+            butn.addEventListener("click", (e) => {
+                let xhr = new XMLHttpRequest();
+                xhr.open("POST", "./modify_content.php", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        let response = JSON.parse(xhr.responseText);
+                        if (response.status == "success") {
+                            if (response.message == "removed") {
+                                card.remove();
+                            }
+                        } else {
+                            console.log(response.message);
+                        }
+                    }
+                };
+                xhr.send("id=" + id + "&type_modify=Remove");
+            })
+            let addButton = card.querySelector(".quantity .plus-btn");
+            let minusBtn = card.querySelector(".quantity .minus-btn");
+            let count = card.querySelector("input.count");
+            let stock = card.querySelector("[name='stock']").getAttribute("stock");
+            let price = card.querySelector("[name='price']").getAttribute("price");
+            let total = card.querySelector("input[type='text'].cost");
+            total.value = Number(price) * Number(count.value);
+            addButton.addEventListener("click", (e) => {
+                if (Number(count.value) < Number(stock)) {
+                    count.value = 1 + Number(count.value);
+                    modify_cart(count.value);
+                    total.value = Number(price) * Number(count.value);
+
+                } else {
+                    count.value = count.value;
+                }
+
+            })
+            minusBtn.addEventListener("click", (e) => {
+                if (Number(count.value) > 1) {
+                    count.value = count.value - 1;
+                    modify_cart(count.value);
+                    total.value = Number(price) * Number(count.value);
+                } else {
+                    count.value = count.value;
+                }
+            })
+
+            function modify_cart(count) {
+                let xhr = new XMLHttpRequest();
+                xhr.open("POST", "./modify_content.php", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        let response = JSON.parse(xhr.responseText);
+                        if (response.status == "success") {
+                            if (response.message == "removed") {
+                                card.remove();
+                            }
+                        } else {
+                            console.log(response.message);
+                        }
+                    }
+                };
+                xhr.send("id=" + id + "&type_modify=Add" + "&count=" + count);
+            }
+
+
+
+        });
+    });
+    </script>
     <script src="../js/public.js"></script>
     <script src="../js/all.min.js"></script>
     <script src="../js/bootstrap.bundle.min.js"></script>
