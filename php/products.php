@@ -28,7 +28,7 @@
     <?php
     session_start();
     // if(empty($_SESSION["name"])){header("location: login.php");die();}
-    $username = !empty($_SESSION) && isset($_SESSION["name"])? $_SESSION["name"]:"";
+    $username = !empty($_SESSION) && isset($_SESSION["name"])? $_SESSION["name"]:null;
 ?>
     <nav class="ms-md-2 me-md-2 mb-8 ps-1 pe-2">
         <div class="col-12 d-flex justify-content-between  p-1 container">
@@ -37,10 +37,10 @@
                     <h1 class="m-0">DeepSpace</h1>
                     <h3><?php echo $username?$username:"" ?></h3>
                 </div>
-                <ul class="col-6 d-block d-md-flex justify-content-between " id="navbar-but">
+                <ul class="col-8 col-lg-6 d-block d-md-flex justify-content-between " id="navbar-but">
                     <li class="ms-3 "><a href="../index.php">Home</a></li>
                     <li class="ms-3 active"><a href="">Products</a></li>
-                    <li class="ms-3"><a href="orders.php">Cart</a></li>
+                    <li class="ms-3"><a href="orders.php"><i class="fa-solid fa-cart-shopping"></i>Cart</a></li>
                     <li class="ms-3"><a href="cart.php">About</a></li>
                     <li class="ms-3"><a
                             href='./<?php echo $username?"logout.php":"login.php" ?>'><?php echo $username?"Logout":"Login" ?>
@@ -54,9 +54,17 @@
         </div>
     </nav>
 
+    <?php if( !empty($username) ){ ?>
+    <span class="cart-butn-flut d-md-none">
+        <a href="./orders.php">
+            <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+    </span>
+    <?php } ?>
 
     <div class=" text-center">
-        <div class="row grid gap m-0">
+
+        <div class="row grid gap m-auto container">
 
             <?php 
            
@@ -82,7 +90,8 @@
 
                         <input type="hidden" name="id" value="<?php echo $id_p?>"
                             <?php echo isset($_COOKIE[$username]["cart"][$id_p])?"added":"" ?>>
-                        <input type="button" class="btn btn-primary"
+                        <input type="button"
+                            class="btn  <?php echo isset($_COOKIE[$username]["cart"][$id_p])?"added":"" ?>"
                             value="<?php echo isset($_COOKIE[$username]["cart"][$id_p])?"Remove":"Add To Cart" ?>">
                         <br>
                         <label id="mes" class="d-none" for="">login first <a href="../php/login.php">login</a></label>
@@ -116,29 +125,6 @@
             ?>
 
 
-
-
-            <div class="p-2 col-12 col-md-6 col-lg-4 ">
-                <div class="card" aria-hidden="true" style="height:100%;">
-                    <img src="..." class="card-img-top" alt="..." style="height:50%" />
-                    <p id="msms">no thing now </p>
-                    <div class="card-body">
-                        <h5 class="card-title placeholder-glow">
-                            <span class="placeholder col-6"></span>
-                        </h5>
-                        <p class="card-text placeholder-glow">
-                            <span class="placeholder col-7"></span>
-                            <span class="placeholder col-4"></span>
-                            <span class="placeholder col-4"></span>
-                            <span class="placeholder col-6"></span>
-                            <span class="placeholder col-8"></span>
-                        </p>
-                        <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
-                    </div>
-                </div>
-            </div>
-
-
         </div>
     </div>
 
@@ -161,9 +147,11 @@
                             if (response.message == "added") {
                                 id.setAttribute("added", "");
                                 butn.value = "Remove";
+                                butn.classList.toggle("added")
                             } else if (response.message == "removed") {
                                 id.removeAttribute("added");
                                 butn.value = "Add To Cart";
+                                butn.classList.toggle("added")
                             } else {
                                 // window.location = "login.php"
                                 card.querySelector("#mes").classList.toggle("d-none");

@@ -19,6 +19,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700;800&display=swap"
         rel="stylesheet">
 
+    <style>
+
+    </style>
 </head>
 
 <body>
@@ -33,10 +36,10 @@
                     <h1 class="m-0">DeepSpace</h1>
                     <h3><?php echo $username?$username:"" ?></h3>
                 </div>
-                <ul class="col-6 d-block d-md-flex justify-content-between " id="navbar-but">
+                <ul class="col-8 col-lg-6 d-block d-md-flex justify-content-between " id="navbar-but">
                     <li class="ms-3 active"><a href="index.php">Home</a></li>
                     <li class="ms-3"><a href="./php/products.php">Products</a></li>
-                    <li class="ms-3"><a href="./php/orders.php">Cart</a></li>
+                    <li class="ms-3"><a href="./php/orders.php"><i class="fa-solid fa-cart-shopping"></i>Cart</a></li>
                     <li class="ms-3"><a href="./php/cart.php">About</a></li>
                     <li class="ms-3"><a
                             href='./php/<?php echo $username?"logout.php":"login.php" ?>'><?php echo $username?"Logout":"Login" ?>
@@ -58,29 +61,20 @@
     </div>
     <!-- End landing  -->
 
-    <div class="row grid gap m-0">
-        <div class="p-2 col-12 col-md-6 col-lg-4 ">
-            <div class=" text-center">
-                <div class="card">
-                    <img src="./imgs/header.jpg" class="card-img-top rounded img-fluid" loading="lazy" alt="..." />
-
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">
-                            Some quick example text to build on the card title and make up the bulk of
-                            the card's content.
-                        </p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php 
+    <div class="row grid gap m-auto container">
+        <?php if( !empty($username) ){ ?>
+        <span class="cart-butn-flut d-md-none">
+            <a href="./php/orders.php">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </a>
+        </span>
+        <?php } 
            
            require_once("./php/config.php");
-           $sql = "SELECT id_p,title,price,imag FROM `product`";
+           $sql = "SELECT id_p,title,price,imag FROM `product` LIMIT 6";
 
            if($stmt = $con->prepare($sql)){
+           
                 if($stmt->execute()){
                     $stmt->store_result();
                     $stmt->bind_result($id_p,$title,$price,$path);
@@ -104,51 +98,10 @@
                         ";
                     }
                 }
+                $stmt->close();
            }
-           
-
-
-            echo "
-            <div class='p-2 col-12 col-md-6 col-lg-4 '>
-                <div class='card'>
-                    <img src='./imgs/impr_952672-PDP.jpg' class='card-img-top' loading='lazy' alt='...' />
-
-                    <div class='card-body'>
-                        <h5 class='card-title'>Card title</h5>
-                        <p class='card-text'>
-                           500
-                        </p>
-                        <a href='./products.php?' class='btn btn-primary'>Buy Now</a>
-
-                    </div>
-                </div>
-            </div>
-            "
+        
             ?>
-
-
-
-
-        <div class="p-2 col-12 col-md-6 col-lg-4 ">
-            <div class="card" aria-hidden="true" style="height:100%;">
-                <img src="..." class="card-img-top" alt="..." style="height:50%" />
-                <div class="card-body">
-                    <h5 class="card-title placeholder-glow">
-                        <span class="placeholder col-6"></span>
-                    </h5>
-                    <p class="card-text placeholder-glow">
-                        <span class="placeholder col-7"></span>
-                        <span class="placeholder col-4"></span>
-                        <span class="placeholder col-4"></span>
-                        <span class="placeholder col-6"></span>
-                        <span class="placeholder col-8"></span>
-                    </p>
-                    <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
-                </div>
-            </div>
-        </div>
-
-
     </div>
     </div>
     <script src="js/public.js"></script>

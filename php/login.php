@@ -23,7 +23,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if ($stmt->fetch()) {
 
                             if (password_verify($password,$hashed_password)  ) {
-                            echo "Login successful!";
 
                             $_SESSION['name'] = $username;
                             $_SESSION["email"]=$email;
