@@ -40,7 +40,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,'Black Hoodie',1500,'Gildan Heavyweight Hoodie ','impr_952672-PDP.jpg',0),(2,'Black suit',2500,'Stylish black suit with black pants ','mensuit-black1.jpg',0),(3,'Black suit',2600,'Stylish black suit with black pants ','mensuit-black2.jpg',0),(4,'Blue suit',2700,'Stylish Blue suit with blue pants ','mensuit-blue.jpg',0),(5,'blue and Black suit',3500,'Stylish black and blue suit with blue jeans','mensuit-blueandblack.jpg',0),(6,'Dark Blue suit',2500,'Stylish Dark Blue suit with Blue pants ','mensuit-darkblue.jpg',0),(7,'darkgray suit',3000,'Stylish darkgray suit with darkgray pants ','mensuit-darkgray.jpg',0),(8,'gray suit',2500,'Stylish gray suit with gray pants ','mensuit-gray.jpg',0),(9,'Light gray suit',2350,'Stylish DarkGray suit with Gray pants ','mensuit-lightgray.jpg',0);
+INSERT INTO `product` VALUES (1,'Black Hoodie',1500,'Gildan Heavyweight Hoodie ','impr_952672-PDP.jpg',482),(2,'Black suit',2500,'Stylish black suit with black pants ','mensuit-black1.jpg',92),(3,'Black suit',2600,'Stylish black suit with black pants ','mensuit-black2.jpg',584),(4,'Blue suit',2700,'Stylish Blue suit with blue pants ','mensuit-blue.jpg',790),(5,'blue and Black suit',3500,'Stylish black and blue suit with blue jeans','mensuit-blueandblack.jpg',666),(6,'Dark Blue suit',2500,'Stylish Dark Blue suit with Blue pants ','mensuit-darkblue.jpg',310),(7,'darkgray suit',3000,'Stylish darkgray suit with darkgray pants ','mensuit-darkgray.jpg',549),(8,'gray suit',2500,'Stylish gray suit with gray pants ','mensuit-gray.jpg',819),(9,'Light gray suit',2350,'Stylish DarkGray suit with Gray pants ','mensuit-lightgray.jpg',159);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-20 20:20:36
+-- Dump completed on 2024-06-24 12:35:41

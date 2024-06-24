@@ -160,3 +160,55 @@ body {
 .payment .shopping-cart {
   width: fit-content;
 }
+
+.orders-history {
+  border-radius: 8px;
+  background-color: #eee;
+  /* background-color: #3e4451; */
+}
+
+.orders-history h2 {
+  color: var(--main-color);
+}
+
+.order_items p {
+  min-width: 50vw;
+  font-size: 16px;
+  /* border-bottom: solid 1px var(--main-color); */
+  box-shadow: 0px 3px 15px #10cab7;
+  border-radius: 4px;
+  padding: 2px 15px;
+}
+
+.order_items > div {
+  margin: 0px auto 5px !important;
+}
+
+.order-item > div {
+  margin: 0px auto 5px;
+
+  border-bottom: solid 3px var(--main-color);
+}
+
+.item-order {
+  flex-wrap: wrap;
+}
+
+.order-item {
+  padding: 10px 15px;
+  width: fit-content;
+  margin: 5px auto 10px !important;
+  box-shadow: 1px 1px 5px #0000004f;
+  border-radius: 11px;
+}
+
+.order-item img {
+  border-radius: 10px;
+  width: 40%;
+}
+
+@media only screen and (max-width: 600px) {
+  .order-item > div {
+    width: 80vw;
+  }
+}

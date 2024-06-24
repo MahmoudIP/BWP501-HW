@@ -19,6 +19,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700;800&display=swap"
         rel="stylesheet">
+
 </head>
 
 <?php
@@ -39,16 +40,17 @@ echo "
         <h5 name='stock' stock='$stock'>stock:  $stock </h5>
     </span>
     <div class='quantity col-md-5 align-items-center'>
+
         <button class='plus-btn btns ' type='button' name='button'>
             <i class='fa-solid fa-plus'></i> </button>
-        <input type='text' class='count text-center'  value='$val' readonly>
+        <input type='text' class='count text-center'  value='$val' readonly> SYP
         <button class='minus-btn btns' type='button' name='button'>
             <i class='fa-solid fa-minus'></i>
         </button>
     </div>
     <div class='price-content col-md-3 align-items-center'>
         <label class='p  rice fs-5 '>Total :</label><br>
-        <input type='text' class='cost price text-center mb-4' readonly>
+        <input type='text' class='cost price text-center mb-4' readonly> 
     </div>
     <label class='id_p d-none' id_p='$id_p'></label>
 </div>
@@ -169,7 +171,7 @@ echo "
 
                     <div class="info">
                         <label for="location">location: </label><br>
-                        <input type="text" name="location" maxlength="30" class="text-center"
+                        <input type="text" name="location" maxlength="60" class="text-center"
                             placeholder="location"><br>
                         <label for="location" name="errorLocation" class="err d-none">Location Is Required</label>
                     </div>
@@ -188,7 +190,24 @@ echo "
             </div>
         </div>
     </div>
-    <?php } // user login ?>
+    <?php } // user login 
+    if(isset($_SESSION['name'])){?>
+    <div class="content container">
+        <div class="orders-history pb-1">
+            <!-- Title -->
+            <h2 class="title title p-3 text-center">
+                orders History
+            </h2>
+            <?php  // display orders;
+            if(
+
+                !include_once('./display_orders.php')
+            )
+            echo"<h1 class='text-center'>No Orders yet </h1>";
+    }
+?>
+        </div>
+    </div>
 
 
     <script>
@@ -226,14 +245,14 @@ echo "
             let stock = card.querySelector("[name='stock']").getAttribute("stock");
             let price = card.querySelector("[name='price']").getAttribute("price");
             let total = card.querySelector("input[type='text'].cost");
-            total.value = Number(price) * Number(count.value);
+            total.value = (Number(price) * Number(count.value));
 
             // adding count 
             addButton.addEventListener("click", (e) => {
                 if (Number(count.value) < Number(stock)) {
                     count.value = 1 + Number(count.value);
                     modify_cart(count.value);
-                    total.value = Number(price) * Number(count.value);
+                    total.value = (Number(price) * Number(count.value));
 
                 } else {
                     count.value = count.value;
@@ -245,7 +264,7 @@ echo "
                 if (Number(count.value) > 1) {
                     count.value = count.value - 1;
                     modify_cart(count.value);
-                    total.value = Number(price) * Number(count.value);
+                    total.value = (Number(price) * Number(count.value));
                 } else {
                     count.value = count.value;
                 }

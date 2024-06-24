@@ -84,7 +84,7 @@
                     <div class='card-body'>
                         <h5 class='card-title'><?php echo $title?></h5>
                         <p class='card-text'>
-                            <?php echo  $price?>
+                            <?php echo  $price?> SYP
                         </p>
                         <p><?php echo $description?></p>
 

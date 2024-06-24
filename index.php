@@ -88,7 +88,7 @@
                                     <div class='card-body'>
                                         <h5 class='card-title'>$title</h5>
                                         <p class='card-text'>
-                                            $price
+                                            $price SYP
                                         </p>
                                         <a href='./php/products.php#$id_p' class='btn btn-primary'>Buy Now</a>
                                     </div>

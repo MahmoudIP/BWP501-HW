@@ -12,8 +12,9 @@ $result=['status' => 'Fail'];
 
         $cart=$_COOKIE[$_SESSION['name']]['cart'];
         
-        $sql_insert="INSERT INTO `deepspace`.`oreders`(`id_u`, `id_p`, `count`, `price`, `location`, `phone`, `date`) VALUES (?, ?, ?, ?,?,?,?)";
+        $sql_insert="INSERT INTO `deepspace`.`orders`(`id_u`, `id_p`, `count`, `price`, `location`, `phone`, `date`) VALUES (?, ?, ?, ?,?,?,?)";
         $sql_query="SELECT price,stock FROM `deepspace`.`product` WHERE id_p =";
+        $sql_update="UPDATE `product` SET `stock` = `stock`- ?  WHERE (`id_p` = ? )";
         
         $status=true;
         $prices=[""=>""];
@@ -39,24 +40,29 @@ $result=['status' => 'Fail'];
             }
         }
         if($status){
-            foreach($cart as $pro=>$count){
-                if($stmt=$con->prepare($sql_insert)){
-                    $id_user=(int)$_SESSION['id'];
-                    $price=(double)$prices[$pro];
-                    $qty=(int)$count;
-                    $id_pro=(int)$pro;
-                    $day=date("y-m-d H:i:s");
-                    $stmt->bind_param("iiidsss",$id_user,$id_pro,$qty,$price,$location,$phone,$day);
-                    if($stmt->execute()){
-                        $result[$pro]="success";
-                        setcookie($_SESSION['name']."[cart][$id_pro]",0,time(),"/");
-                        // $stmt->error
-                    }else{
-                        $result['status']="fail";
-                        $result[$pro]="fail";
-                        $result=$stmt->error;
-                    }
-                }  
+            $day=date("y-m-d H:i");
+            foreach($cart as $pro=> $count ){
+                if($stmt=$con->prepare($sql_update)){
+                   $stmt->bind_param("ii",$count,$pro);
+                   if($stmt->execute()){
+                       if($stmt=$con->prepare($sql_insert)){
+                           $id_user=(int)$_SESSION['id'];
+                           $price=(double)$prices[$pro];
+                           $qty=(int)$count;
+                           $id_pro=(int)$pro;
+                           $stmt->bind_param("iiidsss",$id_user,$id_pro,$qty,$price,$location,$phone,$day);
+                           if($stmt->execute()){
+                               $result[$pro]="success";
+                               setcookie($_SESSION['name']."[cart][$id_pro]",0,time(),"/");
+                               // $stmt->error
+                           }else{
+                               $result['status']="fail";
+                               $result[$pro]="fail";
+                               $result=$stmt->error;
+                           }
+                       }  
+                   } 
+                }
             }
             $stmt->close();
             $con->close();
