@@ -20,6 +20,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700;800&display=swap"
         rel="stylesheet">
 
+
+
+
+    </style>
 </head>
 
 <?php
@@ -36,29 +40,27 @@ echo "
 <div class='description col-md-7 d-sm-flex  justify-content-between align-items-center'>
     <span class='col-md-4'>
         <h4> $title</h4>
-        <h5 name='price' price='$price'>Price:$price</h5>
+        <h5 name='price' price='$price'>Price: $price SYP</h5> 
         <h5 name='stock' stock='$stock'>stock:  $stock </h5>
     </span>
     <div class='quantity col-md-5 align-items-center'>
 
         <button class='plus-btn btns ' type='button' name='button'>
             <i class='fa-solid fa-plus'></i> </button>
-        <input type='text' class='count text-center'  value='$val' readonly> SYP
+        <input type='number' class='count text-center'  value='$val' > 
         <button class='minus-btn btns' type='button' name='button'>
             <i class='fa-solid fa-minus'></i>
         </button>
     </div>
     <div class='price-content col-md-3 align-items-center'>
         <label class='p  rice fs-5 '>Total :</label><br>
-        <input type='text' class='cost price text-center mb-4' readonly> 
+        <input type='text' class='cost price text-center mb-4' readonly> SYP
     </div>
     <label class='id_p d-none' id_p='$id_p'></label>
 </div>
 </div>" ;
 }
 ?>
-
-
 
 <body>
     <?php
@@ -171,7 +173,7 @@ echo "
 
                     <div class="info">
                         <label for="location">location: </label><br>
-                        <input type="text" name="location" maxlength="60" class="text-center"
+                        <input type="text" name="location" maxlength="60" aria-setsize="80" class="text-center"
                             placeholder="location"><br>
                         <label for="location" name="errorLocation" class="err d-none">Location Is Required</label>
                     </div>
@@ -195,17 +197,13 @@ echo "
     <div class="content container">
         <div class="orders-history pb-1">
             <!-- Title -->
-            <h2 class="title title p-3 text-center">
+            <h2 class="title  p-3 text-center">
                 orders History
             </h2>
-            <?php  // display orders;
-            if(
+            <div class="orders_content">
 
-                !include_once('./display_orders.php')
-            )
-            echo"<h1 class='text-center'>No Orders yet </h1>";
-    }
-?>
+                <?php  } # display orders; ?>
+            </div>
         </div>
     </div>
 
@@ -247,6 +245,11 @@ echo "
             let total = card.querySelector("input[type='text'].cost");
             total.value = (Number(price) * Number(count.value));
 
+            count.addEventListener("change", (e) => {
+                if (Number(count.value) > stock) count.value = stock;
+                else if (Number(count.value) <= 0) count.value = 1;
+                console.log(count.value)
+            })
             // adding count 
             addButton.addEventListener("click", (e) => {
                 if (Number(count.value) < Number(stock)) {
@@ -381,7 +384,10 @@ echo "
                             document.querySelectorAll('.items').forEach(el => {
                                 el.remove();
                             })
+                            phoneNum.value = null;
+                            location.value = null;
                             countTotalPrice();
+                            display_orders();
                         } else {
                             console.log(response.message);
                         }
@@ -391,6 +397,36 @@ echo "
             }
         })
 
+        function display_orders(numOrders = 0) {
+            console.log("trying to get data");
+            // let orders_history = document.querySelector(".orders-history");
+            let display_here = document.querySelector(".orders_content");
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "./display_orders.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    let response = JSON.parse(xhr.responseText);
+                    if (response["status"] == "success") {
+                        console.log(response)
+                        console.log(response.length)
+                        for (let key in response) {
+                            if (key != 'status') {
+                                display_here.innerHTML = response[key] + display_here.innerHTML;
+                                console.log(response[key]);
+                            }
+                        }
+
+                        countTotalPrice();
+                    } else {
+                        console.log(response);
+                    }
+                }
+
+            }
+            xhr.send("numOrders=" + numOrders);
+        }
+        display_orders(true);
     });
     </script>
     <script src="../js/public.js"></script>

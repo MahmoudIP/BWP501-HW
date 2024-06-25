@@ -6,11 +6,16 @@ body {
 .shopping-cart {
   border-radius: 8px;
   background-color: #eee;
-  /* background-color: #3e4451; */
+
+  margin: auto;
 }
 
 .shopping-cart h2 {
   color: var(--main-color);
+}
+.info input {
+  width: 80vw;
+  max-width: 400px;
 }
 
 .butn-delete {
@@ -25,7 +30,9 @@ body {
 
 .btns,
 .count {
+  outline: none;
   border-radius: 8px;
+  border: none;
 }
 
 .count {
@@ -77,6 +84,8 @@ body {
     height: 50vh;
     min-height: fit-content;
     padding: 10px 0px;
+
+    min-height: 400px;
   }
 
   .total-cart-price {
@@ -211,4 +220,13 @@ body {
   .order-item > div {
     width: 80vw;
   }
+}
+
+input.count::-webkit-outer-spin-button,
+input.count::-webkit-outer-spin-button {
+  appearance: none;
+}
+
+input.count {
+  appearance: textfield;
 }
