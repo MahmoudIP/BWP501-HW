@@ -40,7 +40,6 @@
                     <li class="ms-3 active"><a href="index.php">Home</a></li>
                     <li class="ms-3"><a href="./php/products.php">Products</a></li>
                     <li class="ms-3"><a href="./php/orders.php"><i class="fa-solid fa-cart-shopping"></i>Cart</a></li>
-                    <li class="ms-3"><a href="./php/cart.php">About</a></li>
                     <li class="ms-3"><a
                             href='./php/<?php echo $username?"logout.php":"login.php" ?>'><?php echo $username?"Logout":"Login" ?>
                         </a>
@@ -55,8 +54,9 @@
     <!-- Start landing  -->
     <div class="landing">
         <div class="intro-text">
-            <h1 class="d-flex justify-content-center align-itmes-center">Hello There </h1><br><br>
-            <p class="d-flex justify-content-center align-itmes-center">We Here for you, be Cool be Fantastic </p>
+            <h1 class="d-flex justify-content-center align-itmes-center">Welcome to Deepspace</h1><br>
+            <p class="d-flex justify-content-center align-itmes-center">SVU WEB Project</p><br>
+            <p class="d-flex justify-content-center align-itmes-center">Devs: mhmod_212637 - ahmad_154538 - doha_162552 - aous_208407</p>
         </div>
     </div>
     <!-- End landing  -->

@@ -80,7 +80,6 @@ echo "
                     <li class="ms-3 "><a href="./products.php">Products</a></li>
                     <li class="ms-3 active"><a href="./orders.php"><i class="fa-solid fa-cart-shopping"></i>Cart </a>
                     </li>
-                    <li class="ms-3"><a href="cart.php">About</a></li>
                     <li class="ms-3"><a
                             href='./<?php echo $username?"logout.php":"login.php" ?>'><?php echo $username?"Logout":"Login" ?>
                         </a>
