@@ -398,8 +398,6 @@ echo "
         })
 
         function display_orders(numOrders = 0) {
-            console.log("trying to get data");
-            // let orders_history = document.querySelector(".orders-history");
             let display_here = document.querySelector(".orders_content");
             let xhr = new XMLHttpRequest();
             xhr.open("POST", "./display_orders.php", true);
@@ -408,15 +406,13 @@ echo "
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     let response = JSON.parse(xhr.responseText);
                     if (response["status"] == "success") {
-                        console.log(response)
-                        console.log(response.length)
-                        for (let key in response) {
-                            if (key != 'status') {
-                                display_here.innerHTML = response[key] + display_here.innerHTML;
-                                console.log(response[key]);
+                        if (response.items.length === 1) {
+                            display_here.innerHTML = response.items[0] + display_here.innerHTML;
+                        } else {
+                            for (let key in response.items) {
+                                display_here.innerHTML += response.items[key];
                             }
                         }
-
                         countTotalPrice();
                     } else {
                         console.log(response);

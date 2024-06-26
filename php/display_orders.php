@@ -24,6 +24,7 @@ ORDER BY
   o.date DESC";
   $contents=['status'=>'success'];
   $content="";
+  $constev=[""=>""];
     $stmt=$con->prepare($sql);
     if($stmt->bind_param("i",$_SESSION['id'])){
         if($stmt->execute()){
@@ -67,12 +68,12 @@ ORDER BY
                   $content=$content. "<h3>Total Price : "." ".$total." " ."  SYP</h3>";
                   $content=$content."</div>";
                   $content=$content. "<hr>";
-                  $contents[]=$content;
+                  $contentsv[]=$content;
                   if(!$numorders){break;}
                 
             }
-            
-          }
+            $contents["items"]=$contentsv;
+        }
             else{
 
                 $contents['status']='fail';
