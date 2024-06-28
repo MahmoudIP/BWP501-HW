@@ -12,8 +12,8 @@ $result=['status' => 'Fail'];
 
         $cart=$_COOKIE[$_SESSION['name']]['cart'];
         
-        $sql_insert="INSERT INTO `deepspace`.`orders`(`id_u`, `id_p`, `count`, `price`, `location`, `phone`, `date`) VALUES (?, ?, ?, ?,?,?,?)";
-        $sql_query="SELECT price,stock FROM `deepspace`.`product` WHERE id_p =";
+        $sql_insert="INSERT INTO `orders`(`id_u`, `id_p`, `count`, `price`, `location`, `phone`, `date`) VALUES (?, ?, ?, ?,?,?,?)";
+        $sql_query="SELECT price,stock FROM `product` WHERE id_p =";
         $sql_update="UPDATE `product` SET `stock` = `stock`- ?  WHERE (`id_p` = ? )";
         
         $status=true;

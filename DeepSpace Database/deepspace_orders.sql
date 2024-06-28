@@ -28,8 +28,8 @@ CREATE TABLE `orders` (
   `id_p` int NOT NULL,
   `count` int NOT NULL,
   `price` float NOT NULL,
-  `location` varchar(200) NOT NULL,
-  `phone` varchar(45) NOT NULL,
+  `location` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `date` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
@@ -37,7 +37,7 @@ CREATE TABLE `orders` (
   KEY `id_p_idx` (`id_p`),
   CONSTRAINT `id_p` FOREIGN KEY (`id_p`) REFERENCES `product` (`id_p`),
   CONSTRAINT `id_u` FOREIGN KEY (`id_u`) REFERENCES `users` (`id_u`)
-) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,7 +46,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (92,8,1,2,1500,'damascous - mazzah - st5 - b8 - fl3','0987654321','2024-06-24 11:14:00'),(93,8,2,2,2500,'damascous - mazzah - st5 - b8 - fl3','0987654321','2024-06-24 11:14:00'),(94,8,3,2,2600,'damascous - mazzah - st5 - b8 - fl3','0987654321','2024-06-24 11:14:00'),(95,8,1,5,1500,'tartous al_thawra_st - st5 - b4 - fl3','0987654321','2024-06-24 11:17:00'),(96,8,2,5,2500,'tartous al_thawra_st - st5 - b4 - fl3','0987654321','2024-06-24 11:17:00'),(97,8,3,3,2600,'tartous al_thawra_st - st5 - b4 - fl3','0987654321','2024-06-24 11:17:00');
+INSERT INTO `orders` VALUES (98,9,20,1,1450,'tartous','0932154620','2024-06-28 08:55:00'),(99,9,22,1,2350,'tartous','0932154620','2024-06-28 08:55:00'),(100,9,26,1,2350,'tartous','0932154620','2024-06-28 08:55:00'),(101,9,29,1,1265,'tartous','0932154620','2024-06-28 08:55:00'),(102,9,3,6,5000,'tartous','0932154620','2024-06-28 08:55:00'),(103,9,2,4,6000,'tartous','0932154620','2024-06-28 08:55:00'),(104,9,32,5,1235,'tartous','0932154620','2024-06-28 08:55:00');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -59,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-24 12:35:41
+-- Dump completed on 2024-06-28  9:57:59

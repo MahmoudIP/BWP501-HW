@@ -104,24 +104,6 @@
            }
            ?>
 
-            <?php
-            // echo "
-            // <div class='p-2 col-12 col-md-6 col-lg-4 '>
-            //     <div class='card'>
-            //         <img src='./imgs/impr_952672-PDP.jpg' class='card-img-top' loading='lazy' alt='...' />
-
-            //         <div class='card-body'>
-            //             <h5 class='card-title'>Card title</h5>
-            //             <p class='card-text'>
-            //                500
-            //             </p>
-            //             <a href='./product.php?id=1' class='btn btn-primary'>View</a>
-
-            //         </div>
-            //     </div>
-            // </div>
-            // "
-            ?>
 
 
         </div>

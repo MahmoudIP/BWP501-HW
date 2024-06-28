@@ -1,6 +1,7 @@
 body {
   background-image: url(../imgs/header.jpg);
   background-size: contain;
+  padding-bottom: 15vh;
 }
 .nav-item {
   padding-left: 15px;
@@ -27,7 +28,7 @@ body {
 
 .landing h1 {
   color: var(--main-color);
-  font-size: 4rem;
+  font-size: 3rem;
 }
 
 .landing p {

@@ -20,7 +20,26 @@
         rel="stylesheet">
 
     <style>
+    .devs {
+        background-color: #0000006b;
+        border-radius: 19px;
+        backdrop-filter: blur(6px);
+        border: solid 1px var(--main-color);
+        padding: 10px 0px;
+        width: 80vw;
+        margin: auto;
+        max-width: 400px;
+    }
 
+    .intro-text ul {
+        list-style: none;
+        width: fit-content;
+        text-align: center;
+        color: white;
+        font-size: 1.5rem;
+        margin: auto;
+        padding-inline-start: 0;
+    }
     </style>
 </head>
 
@@ -54,9 +73,23 @@
     <!-- Start landing  -->
     <div class="landing">
         <div class="intro-text">
-            <h1 class="d-flex justify-content-center align-itmes-center">Welcome to Deepspace</h1><br>
-            <p class="d-flex justify-content-center align-itmes-center">SVU WEB Project</p><br>
-            <p class="d-flex justify-content-center align-itmes-center">Devs: mhmod_212637 - ahmad_154538 - doha_162552 - aous_208407</p>
+            <h1 class="d-flex justify-content-center align-itmes-center text-center">Welcome to Deepspace</h1><br>
+            <p class="d-flex justify-content-center align-itmes-center text-center devs">SVU WEB Project</p><br>
+            <!-- <p class="d-flex justify-content-center align-itmes-center">Devs: mhmod_212637 - ahmad_154538 - doha_162552 - aous_208407</p>
+            <div class="d-flex justify-content-center align-itmes-center devs">
+                <p>Devs: mhmod_212637 - ahmad_154538 - doha_162552 - aous_208407</p>
+            </div> -->
+            <div class="devs">
+                <p class="d-flex justify-content-center align-itmes-center text-center">
+                    Devs:
+                </p>
+                <ul>
+                    <li>mhmod_212637 </li>
+                    <li>ahmad_154538</li>
+                    <li>doha_162552 </li>
+                    <li>aous_208407</li>
+                </ul>
+            </div>
         </div>
     </div>
     <!-- End landing  -->

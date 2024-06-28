@@ -1,3 +1,6 @@
+body {
+  padding-bottom: 15vh;
+}
 .card {
   max-height: fit-content;
   transition: 0.5s;
@@ -79,7 +82,7 @@
   position: sticky;
   font-size: 2rem;
   left: 15px;
-  top: 85dvh;
+  top: 85vh;
   z-index: 9999;
   background-color: #73e5d9;
   border-radius: 16px;

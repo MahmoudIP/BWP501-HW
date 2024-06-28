@@ -162,6 +162,8 @@ echo "
                     </h2>
                     <div class="text-center">
                         <input type="text" class="text-center" id="total-price" readonly>
+                        <br>
+                        <span>SYP</span>
                     </div>
                     <div class="text-center p-5">
                         <a href="./products.php" class="btn btn-add-product">Add Products?!</a> <br>OR<br>
@@ -247,7 +249,7 @@ echo "
             count.addEventListener("change", (e) => {
                 if (Number(count.value) > stock) count.value = stock;
                 else if (Number(count.value) <= 0) count.value = 1;
-                console.log(count.value)
+                modify_cart(count.value);
             })
             // adding count 
             addButton.addEventListener("click", (e) => {
@@ -323,11 +325,28 @@ echo "
         }
 
         document.querySelector(".checkout").addEventListener("click", (e) => {
+            // Show the pay section
             document.querySelector(".pay").classList.remove("d-none");
-            document.getElementById("order").scrollIntoView({
+
+            // Get the payment element
+            const paymentElement = document.querySelector(".payment");
+
+            // Get the current scroll position of the document
+            const currentScrollY = window.scrollY || document.documentElement.scrollTop;
+
+            // Get the top position of the payment element relative to the viewport
+            const elementTop = paymentElement.getBoundingClientRect().top;
+
+            // Calculate the new scroll position
+            const offset = -100; // 30px above the element
+            const targetScrollY = currentScrollY + elementTop + offset;
+
+            // Scroll to the new position smoothly
+            window.scrollTo({
+                top: targetScrollY,
                 behavior: 'smooth'
             });
-        })
+        });
         let phoneNum = document.querySelector("input[name='phoneNumber']");
         let location = document.querySelector("input[name='location']");
         phoneNum.addEventListener("change", checkPhoneNumber);
@@ -365,11 +384,6 @@ echo "
                 return checkPhoneNumber() && true;
             }
         }
-
-        // let cards = document.querySelectorAll('.items');
-        // cards.forEach(el => {
-        //     el.remove();
-        // });
 
         document.getElementById("order").addEventListener("click", (e) => {
             if (checkinputs()) {
